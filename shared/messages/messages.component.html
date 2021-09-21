@@ -1,0 +1,8 @@
+<div
+  class="notification is-size-7 is-12 "
+  [ngClass]="message.type == error ? 'is-danger' : ''"
+  [ngClass]="message.type == info ? 'is-info' : ''"
+>
+  <button class="delete" (click)="onDeleteClick()"></button>
+  {{ message.data }}
+</div>

@@ -1,0 +1,111 @@
+<div class="messages">
+  <div *ngFor="let message of messages">
+    <app-messages
+      [message]="message"
+      (deleteEvent)="deleteMessageEvent($event)"
+    ></app-messages>
+  </div>
+</div>
+
+<form #form="ngForm">
+  <section class="section">
+    <div class="container">
+      <div class="column is-4 is-centered logo">
+        <img src="/assets/logo_2.svg" />
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-half-desktop is-full-tablet">
+          <div class="field is-marginless">
+            <label class="label has-text-white">Email</label>
+            <div class="control">
+              <input
+                attr.id="email"
+                class="input"
+                type="email"
+                ngModel
+                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [(ngModel)]="email"
+                #e="ngModel"
+                name="email"
+                value="emailText"
+                autocomplete="email"
+                placeholder="Email"
+                required
+              />
+
+              <div class="is-size-7 has-text-danger">
+                <span *ngIf="e.invalid && (e.dirty || e.touched)">
+                  <span *ngIf="e.errors.required">
+                    Email is required
+                  </span>
+                  <span *ngIf="e.errors.pattern" class="invalid-feedback">
+                    Please make sure the Email is in the correct format
+                  </span>
+                </span>
+                <span>
+                  {{ errorMessage }}
+                </span>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label has-text-white">Password</label>
+            <div class="control">
+              <input
+                attr.id="password"
+                name="password"
+                class="input"
+                type="password"
+                [(ngModel)]="password"
+                #p="ngModel"
+                placeholder="Password"
+                autocomplete="password"
+                value="passwordText"
+                required
+                minlength="6"
+              />
+              <div class="is-size-7 has-text-danger">
+                <span *ngIf="p.invalid && (p.dirty || p.touched)">
+                  <span *ngIf="p.errors.required">Password is required </span>
+                  <span *ngIf="p.errors.pattern">
+                    Make sure the password contains: 1 character 1 Uppercase
+                    letter 1 digit
+                  </span>
+                  <span *ngIf="p.errors.pattern"> </span>
+                </span>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-grouped ">
+            <div class="column is-paddingless">
+              <div class="control">
+                <button
+                  type="submit"
+                  [disabled]="!form.valid"
+                  (click)="logIn()"
+                  class="button  is-fullwidth loginbutton is-rounded"
+                >
+                  Login
+                </button>
+              </div>
+              <div class="column has-text-centered is-paddingless resetbutton">
+                <a class="resets " [routerLink]="['/password-reset']">
+                  Reset Password
+                </a>
+              </div>
+              <div class="column has-text-centered ">
+                <a class="resets " [routerLink]="['/register']">
+                  Don't have an account? Click here to register
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

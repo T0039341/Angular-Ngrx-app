@@ -1,0 +1,14 @@
+<section class="section">
+  <div class="columns vcenter">
+    <div class="column has-text-white  ">
+      <div class="tanks-placeholder" *ngIf="numberOfTanks == 0">
+        <img src="../../assets/new_tank.svg" alt="tank image" />
+        <p>No Tanks are Available<br/>Please Click on the Plus Icon to Add a Tank</p>
+      </div>
+      <div class="tanks-placeholder" *ngIf="numberOfTanks > 0">
+        <img src="../../assets/tank.svg" alt="tank image"/>
+        <p>Please Select a Tank</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,60 @@
+<section class="section">
+  <!-- <div class="container"> -->
+
+  <div class="columns is-centered ">
+    <div
+      class="column has-text-white is-narrow is-size-1-mobile is-title has-text-centered clockdisp"
+    >
+      {{ clockDisplay }}
+    </div>
+  </div>
+
+  <div class="modal " [ngClass]="isModalVisible ? 'is-active' : ''">
+    <div class="modal-background"></div>
+    <div class="modal-card ">
+      <section class="modal-card-body ">
+        <div class="column ">Tank is not verified yet. Please try again.</div>
+        <div class="column buttons is-pulled-right">
+          <button class="button  is-rounded" (click)="onCancelClicked()">
+            Cancel
+          </button>
+          <button class="button is-rounded" (click)="onTryAgainClicked()">
+            Try Again
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="modal " [ngClass]="isCancelModalVisible ? 'is-active' : ''">
+    <div class="modal-background"></div>
+    <div class="modal-card ">
+      <section class="modal-card-body ">
+        <div class="column ">Are you sure you want to cancel.</div>
+        <div class="column buttons is-pulled-right">
+          <button
+            class="button is-rounded"
+            (click)="isCancelModalVisible = !isCancelModalVisible"
+          >
+            No
+          </button>
+          <button
+            class="button is-rounded is-danger"
+            (click)="onCancelClicked()"
+          >
+            Yes
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="column">
+    <div
+      class="has-text-white has-text-centered is-size-4-desktop is-size-7-mobile  "
+    >
+      Please wait while we configure your device...
+    </div>
+  </div>
+  <!-- </div> -->
+</section>

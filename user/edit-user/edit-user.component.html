@@ -1,0 +1,119 @@
+<section class="section">
+  <div class="container">
+    <form [formGroup]="userForm">
+      <div class="field is-marginless">
+        <div class="form-group">
+          <label for="userName" class="label has-text-white">Full Name</label>
+          <input
+            class="form-control input is-info"
+            type="text"
+            placeholder="Full Name"
+            formControlName="fullName"
+          />
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="fullName?.invalid && fullName?.touched">
+              Name is Required
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <div class="field emailgroup">
+        <div class="form-group">
+          <label for="userEmail" class="label has-text-white">Email</label>
+          <input
+            class="form-control input is-info"
+            name="userEmail"
+            type="email"
+            placeholder="Email Address"
+            autocomplete="email"
+            formControlName="userEmail"
+          />
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="userEmail?.invalid && userEmail?.touched">
+              Email is Required
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2 class="has-text-white is-size-4 title has-text-centered level-left">
+          Change Password
+        </h2>
+        <hr />
+
+        <div formGroupName="passwordGroup">
+          <div class="field">
+            <div class="form-group">
+              <label for="oldPassword" class="label oldpassword has-text-white"
+                >Old Password</label
+              >
+              <input
+                class="form-control input is-info"
+                name="oldPassword"
+                type="password"
+                placeholder="Old Password"
+                autocomplete="current-password"
+                formControlName="oldPassword"
+              />
+              <div class="is-size-7 has-text-danger">
+                <span *ngIf="oldPassword?.invalid && oldPassword?.touched">
+                  Password is required
+                </span>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+
+          <div class="field ">
+            <div class="form-group">
+              <label for="newPassword" class="label newpassword has-text-white"
+                >New Password</label
+              >
+              <input
+                class="form-control input is-info"
+                name="newPassword"
+                type="password"
+                placeholder="New Password"
+                autocomplete="new-password"
+                formControlName="newPassword"
+              />
+              <div class="is-size-7 has-text-danger">
+                <span *ngIf="newPassword?.invalid && newPassword?.touched">
+                  Password is required
+                </span>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            class="button change-pass-button is-rounded"
+            (click)="changePassword()"
+            [disabled]="passwordGroup.invalid ? true : undefined"
+          >
+            Change Password
+          </button>
+        </div>
+      </div>
+      <div class="savebutton">
+        <button
+          class="button is-fullwidth  is-rounded"
+          (click)="onSubmit()"
+          type="submit"
+          [disabled]="fullName.invalid ? true : undefined"
+        >
+          Save Changes
+        </button>
+      </div>
+    </form>
+
+    <!-- ends here -->
+  </div>
+</section>

@@ -1,0 +1,237 @@
+<div class="r-tile is-ancestor is-widescreen">
+  <div class="r-tile is-vertical is-8 is-widescreen">
+    <div class="r-tile">
+      <div class="r-tile is-vertical is-parent">
+        <div class="r-tile is-child">
+          <div class="box is-fullheight">
+            <p class="title  is-size-5 has-text-accent">
+              Tank Details
+            </p>
+            <div class="columns   ">
+              <div
+                class="column is-2-desktop is-6-mobile  is-3-tablet is-offset-3-mobile "
+              >
+                <img
+                  *ngIf="tank != null && tank.shape == 'rect'"
+                  class="tank"
+                  src="../../../assets/tank_rect.svg"
+                />
+                <img
+                  *ngIf="tank != null && tank.shape == 'v_cyl'"
+                  class="tank"
+                  src="../../../assets/tank_v_cyl.svg"
+                />
+                <img
+                  *ngIf="tank != null && tank.shape == 'h_cyl'"
+                  class="tank"
+                  src="../../../assets/tank_h_cyl.svg"
+                />
+              </div>
+
+              <div class="column">
+                <table
+                  class="table has-background-transparent is-fullwidth has-text-white is-hoverable"
+                >
+                  <tbody>
+                    <tr>
+                      <td>
+                        Shape
+                      </td>
+                      <td>
+                        {{
+                          tank != null ? (tank.shape | tankShapePipe) : 'N/A'
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Volume
+                      </td>
+                      <td>
+                        {{
+                          tank != null ? (tank.volume | number: '1.1-1') : 'N/A'
+                        }}
+                        Liters
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Filled Volume</td>
+                      <td>
+                        {{
+                          tank != null
+                            ? (tank.filled_volume | number: '1.1-1')
+                            : 'N/A'
+                        }}
+                        Liters
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Length</td>
+                      <td>
+                        {{
+                          tank != null &&
+                          (tank.shape == 'h_cyl' || tank.shape == 'rect')
+                            ? (tank.length | number: '1.1-1') + ' cm'
+                            : 'N/A'
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Width</td>
+                      <td>
+                        {{
+                          tank != null && tank.shape == 'rect'
+                            ? (tank.width | number: '1.1-1') + ' cm'
+                            : 'N/A'
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Height</td>
+                      <td>
+                        {{
+                          tank != null &&
+                          (tank.shape == 'v_cyl' || tank.shape == 'rect')
+                            ? (tank.height | number: '1.1-1') + ' cm'
+                            : 'N/A'
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Diameter</td>
+                      <td>
+                        {{
+                          tank != null &&
+                          (tank.shape == 'h_cyl' || tank.shape == 'v_cyl')
+                            ? (tank.diameter | number: '1.1-1') + ' cm'
+                            : 'N/A'
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="r-tile is-child">
+          <div class="box">
+            <div class="chart-wrapper">
+              <app-overview-chart [tankId]="tank?.tank_id"></app-overview-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="r-tile is-vertical">
+    <div class="r-tile">
+      <div class="r-tile is-parent is-vertical">
+        <div class="r-tile is-child">
+          <div class="box is-fullheight">
+            <p class="title is-size-5 has-text-accent">
+              Sensor Details
+            </p>
+            <div class="columns">
+              <div class="column">
+                <table
+                  class="table has-background-transparent is-fullwidth has-text-white is-hoverable"
+                >
+                  <tbody>
+                    <tr>
+                      <td>
+                        Sensor ID
+                      </td>
+                      <td>
+                        {{ tank != null ? tank.sensor.sensor_id : 'N/A' }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Sim Number
+                      </td>
+                      <td>
+                        {{
+                          tank != null
+                            ? (tank.sensor.sim_number | tankSimPipe)
+                            : 'N/A'
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Expiration Date
+                      </td>
+                      <td>
+                        {{
+                          tank != null
+                            ? (tank.sensor.expires_at | date: 'MMMM d, y')
+                            : 'N/A'
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Verify
+                      </td>
+
+                      <td>
+                        <button
+                          [attr.disabled]="
+                            tank != null && tank.sensor.is_verified ? '' : null
+                          "
+                          routerLink="/main/tanks/{{ id }}/verify"
+                          class="button is-fullwidth is-rounded is-small"
+                        >
+                          Verify
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="r-tile is-child">
+          <div class="box">
+            <p class="title is-size-5 has-text-accent">Temperature</p>
+            <app-temp-canvas
+              [temperature]="tank?.sensor?.temperature"
+            ></app-temp-canvas>
+          </div>
+        </div>
+
+        <div class="r-tile is-child">
+          <div class="box">
+            <p class="title is-size-5 has-text-accent">
+              Battery
+            </p>
+            <div class="column">
+              <span
+                *ngIf="tank != null && tank.sensor.battery_percentage > 66"
+                [ngClass]=""
+                class="battery battery-full-icon icon"
+              ></span>
+              <span
+                *ngIf="tank!= null &&  tank.sensor.battery_percentage >= 33 && tank.sensor.battery_percentage &lt;= 66"
+                class="battery battery-half-icon icon"
+              ></span>
+              <span
+                *ngIf="tank!= null &&  tank.sensor.battery_percentage &lt;= 33"
+                class="battery battery-low-icon icon"
+              >
+              </span>
+              <h1 class="has-text-white has-text-centered is-size-4">
+                {{
+                  tank != null ? tank.sensor.battery_percentage + '%' : 'N/A'
+                }}
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

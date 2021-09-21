@@ -1,0 +1,111 @@
+<div class="messages">
+  <div *ngFor="let message of messages">
+    <app-messages
+      [message]="message"
+      (deleteEvent)="deleteMessageEvent($event)"
+    ></app-messages>
+  </div>
+</div>
+
+<form [formGroup]="tankForm" (ngSubmit)="onSubmit()">
+  <section class="section">
+    <div class="container">
+      <div class="column is-4 is-centered logo">
+        <img src="/assets/logo_2.svg" />
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="field is-marginless">
+            <div class="form-group">
+              <label for="userName" class="label has-text-white"
+                >Full Name</label
+              >
+              <input
+                class="form-control input is-info"
+                type="text"
+                placeholder="Full Name"
+                formControlName="fullName"
+              />
+              <div class="is-size-7 has-text-danger">
+                <span *ngIf="fullName?.invalid && fullName?.touched">
+                  Name is Required
+                </span>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-marginless">
+            <div class="form-group">
+              <label for="simNumber" class="label has-text-white">Email</label>
+              <input
+                class="form-control input is-info"
+                name="email"
+                type="email"
+                placeholder="Email Address"
+                autocomplete="email"
+                formControlName="userEmail"
+              />
+              <div class="is-size-7 has-text-danger">
+                <span *ngIf="userEmail?.invalid && userEmail?.touched">
+                  <span *ngIf="userEmail.errors?.required">
+                    Email is required
+                  </span>
+                  <span *ngIf="userEmail.errors?.pattern">
+                    Please make sure the Email is in the correct format
+                  </span>
+                </span>
+                <span class="has-text-danger is-size-7">
+                  {{ errorMessage }}
+                </span>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-marginless">
+            <div class="form-group">
+              <label for="userpassword" class="label has-text-white"
+                >Password</label
+              >
+              <input
+                class="form-control input is-info"
+                name="userpassword"
+                type="password"
+                placeholder="Password"
+                autocomplete="password"
+                formControlName="userPassword"
+              />
+              <div class="is-size-7 has-text-danger">
+                <span *ngIf="userPassword?.invalid && userPassword?.touched">
+                  <span *ngIf="userPassword.errors.required">
+                    Password is required
+                  </span>
+                  <span *ngIf="userPassword.errors.pattern">
+                    Make sure the password contains: 1 character 1 Uppercase
+                    letter 1 digit
+                  </span>
+                </span>
+                &nbsp;
+              </div>
+            </div>
+          </div>
+          <div>
+            <button
+              class="button  is-fullwidth registerbutton is-rounded"
+              type="submit"
+              [disabled]="!tankForm.valid"
+            >
+              Register Account
+            </button>
+          </div>
+          <div class="column has-text-centered is-paddingless ">
+            <a class="resets " [routerLink]="['/login']">
+              Already have an account? Click here to login
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

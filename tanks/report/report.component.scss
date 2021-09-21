@@ -1,0 +1,107 @@
+@import '../../../scss/vars';
+
+chart {
+  display: flex;
+}
+
+// .pagics {
+//   // margin-top: 10px;
+// }
+
+.card {
+  margin-bottom: 1em;
+}
+
+.chartWrapper {
+  position: relative;
+}
+
+.card-content {
+  background-color: #424242;
+  height: 100%;
+}
+
+.media-content {
+  color: $label-color;
+}
+
+.media-content > strong {
+  // color: $light-grey;
+  color: #989898;
+}
+
+.title {
+  color: #989898;
+}
+
+.chartWrapper > canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.chartAreaWrapper {
+  width: 1500px;
+  overflow-x: scroll;
+}
+
+.box.media-content {
+  background-color: red;
+}
+
+// .boxes{
+//   background-color: #d3d3d3;
+// }
+
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: $accent-color;
+}
+select {
+  background-color: transparent;
+  border-color: $accent-color !important;
+  &:hover {
+    border-color: $accent-color !important;
+  }
+  option {
+    background-color: #4a4a4a;
+
+    &:hover {
+      box-shadow: 0 0 10px 100px green inset;
+      filter: hue-rotate(90deg);
+    }
+  }
+}
+
+.button {
+  border-color: $accent-color;
+  background-color: transparent;
+}
+
+button {
+  color: $accent-color;
+}
+
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.is-wrapper {
+  flex: 1;
+  height: 100%;
+}
+
+.box {
+  background-color: #424242;
+
+  border-radius: 1em;
+  height: 100%;
+}
+
+.pagination-list {
+  place-content: flex-end;
+  margin-bottom: 7px;
+  width: fit-content;
+}

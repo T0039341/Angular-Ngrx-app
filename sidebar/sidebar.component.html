@@ -1,0 +1,178 @@
+<aside id="sidebar" class="column is-paddingless">
+  <div>
+    <a routerLink="/main/tanks/add" [queryParams]="{ page: currentPage }">
+      <span
+        class="icon add-icon"
+        [ngClass]="isAddingTank ? 'is-selected' : ''"
+      ></span>
+    </a>
+    <hr />
+    <ul class="tanks">
+      <li
+        *ngFor="let tank of alltanks; let i = index"
+        [ngClass]="currentTankId === tank.tank_id ? 'is-selected' : ''"
+      >
+        <div class="icon-wrapper">
+          <div class="iconset">
+            <div>
+              <span
+                *ngIf="currentTankId === tank.tank_id"
+                routerLink="/main/tanks/{{ currentTankId }}/edit"
+                [queryParams]="{ page: currentTankPage }"
+                alt=""
+                class="edit-icon"
+              ></span>
+            </div>
+            <div>
+              <span
+                *ngIf="currentTankId === tank.tank_id"
+                (click)="deleteTankClicked()"
+                alt=""
+                class=" delete-icon"
+              >
+              </span>
+            </div>
+          </div>
+          <span
+            class=" tankbox  icon tank-icon "
+            (click)="showDetails(tank)"
+          ></span>
+          <div></div>
+        </div>
+
+        <p class=" has-text-centered tank-name" (click)="showDetails(tank)">
+          {{ tank.name }}
+        </p>
+      </li>
+    </ul>
+  </div>
+</aside>
+
+<div class="modal " [ngClass]="isDeleteModalVisible ? 'is-active' : ''">
+  <div class="modal-background"></div>
+  <div class="modal-card ">
+    <section class="modal-card-body ">
+      <div class="column ">Are you sure you want to delete this tank?</div>
+      <div class="column buttons is-pulled-right  ">
+        <button
+          class=" button is-rounded "
+          (click)="isDeleteModalVisible = false"
+        >
+          No
+        </button>
+        <button
+          class="yes-button button is-rounded is-danger"
+          (click)="deleteTank()"
+        >
+          Yes
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<nav
+  class="pagination pagics is-centered is-rounded is-small"
+  #pagination
+  role="navigation"
+  aria-label="pagination"
+>
+  <ul class="pagination-list">
+    <li *ngIf="previouspages != null || initialPage != null">
+      <a
+        class="pagination-previous is-pulled-right has-text-white is-paddingless "
+        [queryParams]="{
+          page: currentTankPage > 1 ? currentTankPage - 1 : 1,
+          report_page: currentReportPage > 1 ? currentReportPage : undefined,
+          mode: currentReportMode != null ? currentReportMode : undefined
+        }"
+        [routerLink]="currentPath"
+        >&lt;</a
+      >
+    </li>
+    <li>
+      <a
+        *ngIf="initialPage != null"
+        class="pagination-link has-text-white"
+        [queryParams]="{
+          page: initialPage,
+          report_page: currentReportPage > 1 ? currentReportPage : undefined,
+          mode: currentReportMode != null ? currentReportMode : undefined
+        }"
+        [routerLink]="currentPath"
+        >{{ initialPage }}</a
+      >
+    </li>
+
+    <li *ngIf="previouspages != null && previouspages[0] > initialPage + 1">
+      <span class="pagination-ellipsis #hasellipsis">&hellip;</span>
+    </li>
+
+    <li *ngFor="let page of previouspages">
+      <a
+        class="pagination-link has-text-white"
+        [routerLink]="currentPath"
+        [queryParams]="{
+          page: page,
+          report_page: currentReportPage > 1 ? currentReportPage : undefined,
+          mode: currentReportMode != null ? currentReportMode : undefined
+        }"
+      >
+        {{ page }}
+      </a>
+    </li>
+
+    <li>
+      <a class="pagination-link is-current">
+        {{ currentPage }}
+      </a>
+    </li>
+
+    <li *ngFor="let page of nextpages">
+      <a
+        class="pagination-link has-text-white"
+        [routerLink]="currentPath"
+        [queryParams]="{
+          page: page,
+          report_page: currentReportPage > 1 ? currentReportPage : undefined,
+          mode: currentReportMode != null ? currentReportMode : undefined
+        }"
+      >
+        {{ page }}
+      </a>
+    </li>
+
+    <li
+      *ngIf="finalpage != null && nextpages != null && nextpages[nextpages.length-1] &lt; finalpage-1"
+    >
+      <span class="pagination-ellipsis  #hasellipsis">&hellip;</span>
+    </li>
+
+    <li>
+      <a
+        *ngIf="finalpage != null"
+        class="pagination-link has-text-white"
+        [routerLink]="currentPath"
+        [queryParams]="{
+          page: finalpage,
+          report_page: currentReportPage > 1 ? currentReportPage : undefined,
+          mode: currentReportMode != null ? currentReportMode : undefined
+        }"
+        >{{ finalpage }}</a
+      >
+    </li>
+
+    <li *ngIf="nextpages != null || finalpage != null">
+      <a
+        class="pagination-next has-text-white is-paddingless"
+        [queryParams]="{
+          page: currentTankPage &lt; totalTankPages  ? currentTankPage + 1 : 2,
+          report_page: currentReportPage > 0 ? currentReportPage : undefined,
+          mode: currentReportMode != null ? currentReportMode : undefined
+        }"
+        [routerLink]="currentPath"
+        >&gt;</a
+      >
+    </li>
+  </ul>
+</nav>

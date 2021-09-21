@@ -1,0 +1,133 @@
+@import '../../../scss/vars';
+
+.tankproperties {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.table td {
+  width: 50%;
+  border-bottom-color: $accent-color;
+}
+
+tr > td:first-child {
+  color: #aaaaaa;
+}
+
+.has-text-accent {
+  color: $accent-color;
+}
+
+div.tile.is-ancestor {
+  // margin-right: 3rem;
+}
+
+
+
+#myCanvas {
+  height: 100%;
+  // width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.temp-wrapper {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  @media screen and (max-width: $widescreen) {
+    max-height: 15em;
+    min-height: unset;
+  }
+  @media screen and (max-width: $tablet) {
+    min-height: 12.5em;
+    max-height: unset;
+    width: auto;
+  }
+
+  @media screen and (min-width: $widescreen) {
+    max-height: unset;
+    width: auto;
+    height: unset;
+  }
+}
+
+table.table {
+  background-color: transparent;
+
+  tr:hover {
+    background-color: #707070;
+  }
+}
+
+.battery-full-icon {
+  mask: url(../../../assets/battery_full.svg);
+
+  background: #14ce14;
+}
+
+.battery-half-icon {
+  mask: url(../../../assets/battery_half.svg);
+
+  background: #e8c30b;
+}
+
+.battery-low-icon {
+  mask: url(../../../assets/battery_low.svg);
+
+  background: #d91e1e;
+}
+
+.icon {
+  max-width: 9em;
+  width: 5em !important;
+  height: 5em !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  mask-size: cover;
+  // background: $light-grey;
+}
+
+tr {
+  border-bottom-color: $accent-color !important;
+}
+
+.box {
+  background-color: #424242;
+  border-radius: 1em;
+  height: 100%;
+}
+
+img.tank {
+  height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  @media screen and (min-width: $desktop) {
+    // max-height: 3.5em;
+    display: block;
+  }
+}
+
+img.battery {
+  max-height: 6em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (max-width: $desktop) {
+    max-height: 6.5em;
+  }
+}
+
+.r-tile.is-child > .box {
+  &:hover {
+    box-shadow: 2px 3px 4px 1px #222;
+  }
+}
+
+// svg {
+//   width: 100%;
+//   height: 100%;
+// }

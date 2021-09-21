@@ -1,0 +1,165 @@
+<div [formGroup]="modeGroup">
+  <div class="field">
+    <div class="control">
+      <nav class="level is-paddingless">
+        <div class="level-left ">
+          <div class="level-item is-2 is-paddingless  ">
+            <div class="select is-fullwidth has-text-white ">
+              <select class="has-text-white" formControlName="modeDropDown" #ss>
+                <option
+                  *ngFor="let dropd of modeDropDown"
+                  [value]="dropd.mode"
+                  >{{ dropd.mode }}</option
+                >
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class=" level-right pagination is-paddingless has-text-white "
+          id="pagination"
+          role="navigation"
+          aria-label="pagination"
+        >
+          <div class="level-item is-marginless">
+            <!-- <ul class="pagination-list"> -->
+            <!-- <li> -->
+            <a
+              class="pagination-previous   has-text-white"
+              routerLink="/main/tanks/{{ id }}/reports"
+              *ngIf="currentReportPage > 1"
+              [queryParams]="{
+                page: currentTankPage > 0 ? currentTankPage : undefined,
+                report_page: currentReportPage > 1 ? currentReportPage - 1 : 1,
+                mode: paramMode()
+              }"
+              >Next {{ modeString }}</a
+            >
+            <!-- </li> -->
+          </div>
+
+          <!-- <div *ngFor="let dptanks of displayTank"> -->
+          <div class="level-item is-marginless ">
+            <a
+              class="pagination-next has-text-white "
+              *ngIf="totalReportPages > (currentReportPage || 1)"
+              routerLink="/main/tanks/{{ id }}/reports"
+              [queryParams]="{
+                page: currentTankPage > 0 ? currentTankPage : undefined,
+                report_page: currentReportPage > 0 ? currentReportPage + 1 : 2,
+                mode: paramMode()
+              }"
+              >Previous {{ modeString }}</a
+            >
+            <!-- </li> -->
+          </div>
+          <!-- </ul> -->
+        </div>
+      </nav>
+
+      <div
+        *ngFor="let dptanks of displayTank; let i = index"
+        class="card is-paddingless is-info chart-card"
+      >
+        <div class="card-content  ">
+          <div class="columns">
+            <div class="column">
+              <p *ngIf="dptanks.mode == 'day'" class="title  ">
+                {{ dptanks.created_at | date: 'EEEE, MMMM dd' }}
+              </p>
+              <p *ngIf="dptanks.mode == 'month'" class="title  ">
+                {{ dptanks.created_at | date: 'MMMM yyyy' }}
+              </p>
+              <p *ngIf="dptanks.mode == 'year'" class="title  ">
+                {{ dptanks.created_at | date: 'yyyy' }}
+              </p>
+            </div>
+            <div class="column is-narrow">
+              <button
+                class=" has-text-right-desktop button is-rounded"
+                (click)="displayEvents(i)"
+              >
+                Events
+              </button>
+            </div>
+          </div>
+          <div class="columns boxes">
+            <div class="column is-4 is-fullheight">
+              <div class="box ">
+                <div class="media-content ">
+                  <strong>Volume Consumed: </strong><br />
+                  {{ dptanks.volume_consumed | number: '1.2-2' }} Liters
+                </div>
+              </div>
+            </div>
+            <div class="column is-4 is-fullheight ">
+              <div class="box  ">
+                <div class="media-content">
+                  <strong>Volume Filled:</strong><br />
+                  {{ dptanks.volume_filled | number: '1.2-2' }} Liters
+                </div>
+              </div>
+            </div>
+            <div class="column  is-4 is-fullheight">
+              <div class="box is-fullheight ">
+                <div class="media-content">
+                  <strong>Average {{ currentTransformer }} Consumption:</strong>
+                  {{ dptanks.average_volume_consumed | number: '1.2-2' }} Liters
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="box"> -->
+          <div class="canvas-Wrapper">
+            <chart [data]="dptanks" [index]="i">
+              <canvas></canvas>
+            </chart>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal " [ngClass]="isModalVisible ? 'is-active' : ''">
+  <div class="modal-background"></div>
+  <div class="modal-card ">
+    <section class="modal-card-body ">
+      <span *ngIf="selectedReport?.events.length == 0">
+        No events to show
+      </span>
+      <table
+        *ngIf="selectedReport?.events.length > 0"
+        class="table is-fullwidth is-hoverable "
+      >
+        <thead>
+          <th>Volume Changed</th>
+          <th>Time (UTC)</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of selectedReport?.events">
+            <td>{{ event.volume_changed | number: '1.1-2' }} Liters</td>
+            <td *ngIf="selectedReport != null && selectedReport!.mode == 'day'">
+              {{ event.created_at | date: ' h:mm a':'UTC' }}
+            </td>
+            <td *ngIf="selectedReport?.mode == 'month'">
+              {{ event.created_at | date: 'EEEE dd':'UTC' }}
+            </td>
+            <td *ngIf="selectedReport?.mode == 'year'">
+              {{ event.created_at | date: 'MMMM':'UTC' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <button
+    class="modal-close is-large"
+    aria-label="close"
+    (click)="isModalVisible = false"
+  ></button>
+</div>

@@ -1,0 +1,29 @@
+@import '../../scss/vars';
+
+#myCanvas {
+  height: 100%;
+  // width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.temp-wrapper {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  @media screen and (max-width: $widescreen) {
+    max-height: 15em;
+    min-height: unset;
+  }
+  @media screen and (max-width: $tablet) {
+    min-height: 12.5em;
+    max-height: unset;
+    width: auto;
+  }
+
+  @media screen and (min-width: $widescreen) {
+    max-height: unset;
+    width: auto;
+    height: unset;
+  }
+}

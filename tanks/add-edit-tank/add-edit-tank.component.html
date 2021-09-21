@@ -1,0 +1,330 @@
+<section class="section is-paddingless">
+  <div class="container  ">
+    <form [formGroup]="tankForm" (ngSubmit)="onSubmit()">
+      <div class="columns is-vcentered is-mobile  is-paddingless columnz1">
+        <div class="column is-1-tablet is-2-mobile">
+          <img src="../../../assets/info.svg" alt="g" class="info-img" />
+        </div>
+
+        <div
+          class="has-text-white column is-size-7-mobile is-size-6-tablet text1 "
+          *ngIf="getId == null"
+        >
+          Make sure the device is turned on by magnet and beeping every one
+          second before pressing the submit button
+        </div>
+
+        <div
+          class="has-text-white column is-size-7-mobile is-size-6-tablet text2"
+          *ngIf="getId != null"
+        >
+          Make sure the device is turned on by magnet and beeping every one
+          second before submitting if editing properties other than tank name.
+        </div>
+      </div>
+
+      <div class="field is-marginless">
+        <div class="form-group">
+          <label class="label ">Sensor IMEI</label>
+          <input
+            class="form-control input  is-marginless"
+            name="sensorimei"
+            type="text"
+            placeholder="IMEI"
+            [attr.disabled]="getId != null ? '' : null"
+            formControlName="sensorImei"
+          />
+
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="sensorImei?.invalid && sensorImei?.touched">
+              <span *ngIf="sensorImei.errors?.required">
+                IMEI is required
+              </span>
+              <span *ngIf="sensorImei.errors?.pattern">
+                IMEI must consist of 15 digits only
+              </span>
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-marginless">
+        <div class="form-group">
+          <label for="simNumber" class="label has-text-white">SIM Number</label>
+          <input
+            class="form-control input "
+            name="simNumber"
+            type="tel"
+            placeholder="Sim Number"
+            formControlName="simNumber"
+          />
+
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="simNumber?.invalid && simNumber?.touched">
+              <span *ngIf="simNumber.errors?.required">
+                SIM number is required
+              </span>
+              <span *ngIf="simNumber.errors?.simError && simNumber?.touched">
+                SIM number is not valid
+              </span>
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-marginless">
+        <div class="form-group">
+          <label for="apn" class="label has-text-white">APN</label>
+          <input
+            class="form-control input "
+            name="apn"
+            type="text"
+            placeholder="APN"
+            formControlName="apn"
+          />
+
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="apn?.invalid && apn?.touched">
+              <span *ngIf="apn.errors?.required">APN is required </span>
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-marginless">
+        <div class="form-group">
+          <label for="apnUserName" class="label has-text-white"
+            >APN Username</label
+          >
+          <input
+            class="form-control input "
+            name="apnuname"
+            type="text"
+            placeholder="APN Username"
+            formControlName="apnUserName"
+          />
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="apnUserName?.invalid && apnUserName?.touched">
+              APN Username is required
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-marginless">
+        <div class="form-group">
+          <label for="apnUserName" class="label has-text-white"
+            >APN Password</label
+          >
+          <input
+            class="form-control input"
+            name="apnpassword"
+            placeholder="APN Password"
+            formControlName="apnPassword"
+          />
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="apnPassword?.invalid && apnPassword?.touched">
+              Password is required
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-marginless">
+        <div class="form-group">
+          <label for="tankName" class="label has-text-white">Tank Name</label>
+          <input
+            class="form-control input"
+            name="tnkname"
+            type="text"
+            placeholder="Tank Name"
+            formControlName="tankName"
+          />
+          <div class="is-size-7 has-text-danger">
+            <span *ngIf="tankName?.invalid && tankName?.touched">
+              Tank Name is required
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="dropdown" [ngClass]="isDropDownActive ? 'is-active' : ''">
+        <div class="dropdown-trigger">
+          <label for="tankShape" class="label has-text-white">Tank Shape</label>
+          <button
+            class="button dropbutton"
+            type="button"
+            (click)="isDropDownActive = !isDropDownActive"
+          >
+            <span>Select Tank Shape</span>
+            <span class="icon " style="font-size:1.25rem;">
+              <fa-icon [icon]="['fas', 'chevron-down']" size="1x"></fa-icon>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" role="menu">
+          <a class="dropdown-item">
+            ujnfmds
+          </a>
+          <a class="dropdown-item">
+            idfklms
+          </a>
+        </div>
+      </div> -->
+
+      <div class="field is-marginless">
+        <div class="control">
+            <label for="tankShape" class="label has-text-white">Tank Shape</label>
+          <div class="select">
+            <select class= "has-text-white" formControlName="tankShape" #ss>
+              <option value="" disabled selected>Select Tank Shape</option>
+              <option *ngFor="let shape of tankShapes" [value]="shape.id">
+                {{ shape.tank }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div *ngIf="ss.value == 'rect'">
+        <label class="has-text-white">Length in cm</label>
+        <input
+          class="form-control input "
+          name="length"
+          type="text"
+          placeholder="Length in Cm"
+          formControlName="lengthForm"
+        />
+        <div class=" has-text-danger is-size-7">
+          <span *ngIf="lengthForm?.invalid && lengthForm?.touched">
+            Length is required
+          </span>
+          &nbsp;
+        </div>
+        <!-- <br /> -->
+        <label class="has-text-white">Width in cm</label>
+        <input
+          class="form-control input "
+          name="width"
+          type="text"
+          placeholder="Width in cm"
+          formControlName="widthForm"
+        />
+
+        <div class=" has-text-danger is-size-7">
+          <span *ngIf="widthForm?.invalid && widthForm?.touched">
+            Width is required
+          </span>
+          &nbsp;
+        </div>
+        <!-- <br /> -->
+
+        <label class="has-text-white">Height in cm</label>
+        <input
+          class="form-control input "
+          name="height"
+          type="text"
+          placeholder="Height in cm"
+          formControlName="heightForm"
+        />
+        <div class=" has-text-danger is-size-7">
+          <span *ngIf="heightForm?.invalid && heightForm?.touched">
+            Height is required
+          </span>
+          &nbsp;
+        </div>
+        <!-- <br /> -->
+      </div>
+      <div *ngIf="ss.value == 'h_cyl'">
+        <label class="has-text-white">Length in cm</label>
+        <input
+          class="form-control input "
+          name="length"
+          type="text"
+          placeholder="Length in cm"
+          formControlName="lengthForm"
+        />
+        <div class=" has-text-danger is-size-7">
+          <span *ngIf="lengthForm?.invalid && lengthForm?.touched">
+            Length is required
+          </span>
+          &nbsp;
+        </div>
+        <!-- <br /> -->
+        <label class="has-text-white">Diameter in cm</label>
+        <input
+          class="form-control input "
+          name="diameter"
+          type="text"
+          placeholder="Diameter in cm"
+          formControlName="diameterForm"
+        />
+
+        <div class=" has-text-danger is-size-7">
+          <span *ngIf="diameterForm?.invalid && diameterForm?.touched">
+            Diameter is required
+          </span>
+          &nbsp;
+        </div>
+        <!-- <br /> -->
+
+        <!-- <br /> -->
+      </div>
+      <div *ngIf="ss.value == 'v_cyl'">
+        <label class="has-text-white">
+          Diameter in cm
+        </label>
+        <input
+          class="form-control input "
+          name="diameter"
+          type="text"
+          placeholder="Diameter in Cm"
+          formControlName="diameterForm"
+        />
+        <br />
+        <div class=" has-text-danger is-size-7">
+          <span *ngIf="diameterForm?.invalid && diameterForm?.touched">
+            Diameter is required
+          </span>
+          &nbsp;
+        </div>
+
+        <div>
+          <label class="has-text-white">height in cm</label>
+        </div>
+        <input
+          class="form-control input  heightcm"
+          name="height"
+          type="text"
+          placeholder="Height in Cm"
+          formControlName="heightForm"
+        />
+        <div class=" has-text-danger is-size-7">
+          <span *ngIf="heightForm?.invalid && heightForm?.touched">
+            Height is required
+          </span>
+          &nbsp;
+        </div>
+        <!-- <br />
+        <br /> -->
+      </div>
+
+      <div>
+        <button
+          class="button subbutton  is-rounded"
+          type="submit"
+          [disabled]="!tankForm.valid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

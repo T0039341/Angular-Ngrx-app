@@ -1,0 +1,59 @@
+<form [formGroup]="fieldForm" (ngSubmit)="onSubmit()">
+  <div class="section"></div>
+
+  <div class="section">
+    <div id="support" class="container ">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Text input"
+            formControlName="name"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+
+        <input
+          class="input "
+          type="email"
+          placeholder="Email input"
+          formControlName="emailForm"
+        />
+      </div>
+
+      <div class="select">
+        <select formControlName="countryDropdown" #ss>
+          <option value="" disabled selected>Select Tank Shape</option>
+          <option
+            *ngFor="let countrySelec of countrySelector"
+            [value]="countrySelec.id"
+          >
+            {{ countrySelec.coutry }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Phone Number</label>
+    <div class="control" formControlName="phoneForm">
+      <textarea
+        title="phonenumb"
+        class="textarea"
+        placeholder="Textarea"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="control">
+    <button class="button is-rounded  is-fullwidth ">
+      Submit
+    </button>
+  </div>
+</form>

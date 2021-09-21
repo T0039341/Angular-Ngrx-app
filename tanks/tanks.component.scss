@@ -1,0 +1,30 @@
+@import '../../scss/vars';
+
+.vcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.section {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tanks-placeholder {
+  > img {
+    max-width: 5em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  > p {
+    text-align: center;
+    margin-top: 0.5em;
+    color: $light-grey;
+  }
+}
